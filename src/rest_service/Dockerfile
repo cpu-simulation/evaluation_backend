@@ -21,6 +21,5 @@ RUN pip install --no-cache-dir --requirement /app/req.pip
 COPY . .
 
 EXPOSE 8000
-WORKDIR /app/rest_service
 CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
 
