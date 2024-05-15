@@ -82,12 +82,23 @@ WSGI_APPLICATION = "rest.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
+SQLITE_CONFIG  = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
+
+MYSQL_CONFIG = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': f'{BASE_DIR}/mariadb.cnf',
+        },
+    }
+}
+
+DATABASES = SQLITE_CONFIG if DEBUG else MYSQL_CONFIG
 
 
 # Password validation
