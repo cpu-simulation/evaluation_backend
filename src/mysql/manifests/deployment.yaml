@@ -23,11 +23,8 @@ spec:
       containers:
       - name:  mysql
         image:  docker.arvancloud.ir/mysql
-        env:
-        - name: MYSQL_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              key: mysql_root_password
+        envFrom:
+          - secretRef:
               name: mysql-secret
         ports:
         - containerPort:  3306
@@ -35,10 +32,15 @@ spec:
         volumeMounts:
         - name: localtime
           mountPath: /etc/localtime
+        - name: mysql-persistent-storage
+          mountPath: /var/lib/mysql
       volumes:
         - name: localtime
           hostPath:
             path: /usr/share/zoneinfo/Asia/Tehran
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
       restartPolicy: Always
----
 
+---
