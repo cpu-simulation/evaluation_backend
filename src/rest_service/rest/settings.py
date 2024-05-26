@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     #Plugins
     "rest_framework",
     # Internal Apps
-    "team"
+    "team",
+    "result",
+    "test"
 ]
 
 
