@@ -31,8 +31,8 @@ class Scenario(models.Model): # need more
 
 class ScenarioSteps(models.Model): # need more
     scenario_id = models.ForeignKey(Scenario, on_delete=models.CASCADE)
-    name = models.CharField() # step name
-    type = models.CharField() # step type
+    name = models.CharField(max_length=50) # step name
+    type = models.CharField(max_length=50) # step type
     input = ...
     output = ...
 

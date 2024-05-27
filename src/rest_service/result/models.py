@@ -16,8 +16,12 @@ class Result(models.Model):
         default=uuid.uuid4
     )
 
-    team_id = models.ForeignKey('teaminfo.Teams.team_id', on_delete=models.CASCADE)  # should on_delete stayed on CASCADE or change?
-    scenario_id = models.ForeignKey('testinfo.Scenrios.scenario_id', on_delete=models.CASCADE) # should on_delete stayed on CASCADE or change?
+    # In team_id ForeignKey cant write 'team.Team.id'
+    # is 'team.Team' ok?
+    # This goes for scenario_id too..
+    team_id = models.ForeignKey('team.Team', on_delete=models.CASCADE)  # should on_delete stayed on CASCADE or change?
+    scenario_id = models.ForeignKey('test.Scenario', on_delete=models.CASCADE) # should on_delete stayed on CASCADE or change?
+    
     avarage_time = models.IntegerField() # i think it need to change !!
     score = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add = True)
