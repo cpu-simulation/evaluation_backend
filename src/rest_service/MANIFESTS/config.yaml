@@ -1,0 +1,11 @@
+# https://kubernetes.io/docs/concepts/configuration/configmap/
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: eval_rest_config
+  namespace: default
+data:
+  MYSQL_DB: evaluation
+  MYSQL_PORT: 3306
+---
+
