@@ -29,7 +29,7 @@ spec:
         image:  docker.arvancloud.ir/aminmasoudii/evaluation_rest
         envFrom:
           - secretRef:
-            name: eval_rest-secret
+            name: eval_rest_secret
           - configMapRef:
             name: eval_rest_config
         ports:
