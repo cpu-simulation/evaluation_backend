@@ -5,20 +5,10 @@ import uuid
 # Create your models here.
 
 class Scenario(models.Model): # need more
-    id = models.UUIDField(
-        _("Id"),
-        primary_key=True,
-        db_column="scenario_id",
-        db_index=True,
-        auto_created=True,
-        unique=True,
-        editable=False,
-        default=uuid.uuid4
-    )
 
     name = models.CharField(_("Scenario name"), max_length=50)
 
-    weigtht = models.IntegerField() ## it need to be check
+    weight = models.IntegerField() ## it need to be check
 
     class Meta:
         verbose_name = _("Scenario")
