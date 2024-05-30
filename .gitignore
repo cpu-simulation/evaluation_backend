@@ -5,7 +5,7 @@ __pycache__/
 
 # C extensions
 *.so
-
+*secret.yaml
 # Distribution / packaging
 .Python
 build/
@@ -60,7 +60,8 @@ cover/
 local_settings.py
 db.sqlite3
 db.sqlite3-journal
-
+*.sqlite3
+**/migrations
 # Flask stuff:
 instance/
 .webassets-cache
