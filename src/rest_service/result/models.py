@@ -16,16 +16,20 @@ class Result(models.Model):
         default=uuid.uuid4
     )
 
-    # In team_id ForeignKey cant write 'team.Team.id'
-    # is 'team.Team' ok?
-    # This goes for scenario_id too..
-    team_id = models.ForeignKey('team.Team', on_delete=models.CASCADE)  # should on_delete stayed on CASCADE or change?
-    scenario_id = models.ForeignKey('test.Scenario', on_delete=models.CASCADE) # should on_delete stayed on CASCADE or change?
-    
-    avarage_time = models.IntegerField() # i think it need to change !!
+    team = models.ForeignKey(
+        'team.Team',
+        on_delete=models.CASCADE,
+        db_column="team_id",
+        )
+    scenario = models.ForeignKey(
+        'test.Scenario',
+        on_delete=models.CASCADE,
+        db_column="scenario_id",
+        )
+    average_time = models.IntegerField() # i think it need to change !!
     score = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add = True)
-    upadated_at = models.DateTimeField(auto_now = True)
+    updated_at = models.DateTimeField(auto_now = True)
 
     class Meta:
         verbose_name = _("Result")
@@ -34,4 +38,4 @@ class Result(models.Model):
         
 
     def __str__(self):
-        return self.score ## be this or not?
+        return f"{self.team} - {self.scenario}: {self.score}"
