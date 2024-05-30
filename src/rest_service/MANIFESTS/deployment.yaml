@@ -3,7 +3,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name:  eval_rest_serv
-  namespace: default
   labels:
     app:  eval_rest_serv
 spec:
@@ -42,7 +41,7 @@ spec:
       volumes:
         - name: localtime
           hostPath:
-            path: /usr/share/zoneinfo/Asia/Taipei
+            path: /usr/share/zoneinfo/Asia/Tehran
       restartPolicy: Always
 ---
 
