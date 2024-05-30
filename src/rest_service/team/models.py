@@ -22,8 +22,6 @@ class Team(models.Model):
         max_length=50,
         )
     
-    #TODO: Add more fields
-
     members = models.JSONField(default=list)
 
     class Meta:
