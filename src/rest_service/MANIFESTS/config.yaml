@@ -5,6 +5,7 @@ metadata:
   name: eval_rest_config
 data:
   MYSQL_DB: evaluation
-  MYSQL_PORT: 3306
+  MYSQL_PORT: "3306"
+  DEBUG : "false"
 ---
 
