@@ -1,9 +1,13 @@
 import pika, os, sys
 from test import *
-
+from config import Base, DB, RABBIT, TEST_QUEUE
+from models import Scenario
+    
 def main():
+
+
     connection = pika.BlockingConnection(
-            pika.ConnectionParameters(host="rabbitmq")
+            pika.ConnectionParameters(host=RABBIT)
         )
     channel = connection.channel()
 
@@ -12,7 +16,7 @@ def main():
         ...
 
     channel.basic_consume(
-            queue=os.environ.get("TEST_QUEUE"),
+            queue=TEST_QUEUE,
             on_message_callback=callback
             )
     print("[WAITING]: waiting for message.")
@@ -21,6 +25,7 @@ def main():
 
 if __name__ == "__main__":
     try:
+        Base.metadata.create_all(DB)
         main()
     except KeyboardInterrupt:
         print("[INTERRUPTED]: keyboard interrupt")

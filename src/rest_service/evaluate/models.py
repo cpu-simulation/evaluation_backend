@@ -66,7 +66,10 @@ class Scenario(models.Model):
         return f"{self.name}"
 
 class ScenarioSteps(models.Model): 
-    scenario = models.ForeignKey(Scenario, on_delete=models.CASCADE, related_name="steps")
+    scenario = models.ForeignKey(Scenario,
+                                 db_column="scenario_id",
+                                 on_delete=models.CASCADE,
+                                 related_name="steps")
     name = models.CharField(max_length=50) 
     type = models.CharField(max_length=50)
     input = ...
