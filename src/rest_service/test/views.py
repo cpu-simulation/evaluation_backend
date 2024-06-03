@@ -8,7 +8,6 @@ from rest_framework import viewsets
 from .models import Scenario
 from .serializers import ScenarioSerializers
 
-# Create your views here.
 
 class ScenarioViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Scenario.objects.all()
