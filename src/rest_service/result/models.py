@@ -5,6 +5,11 @@ import uuid
 # Create your models here.
 
 class Result(models.Model):
+    class RESULT_STATUS(models.TextChoices):
+        PENDING = "W", _("WAITING")
+        FAILED = "F", _("Failed")
+        DONE = "P", _("PASSED")
+
     id = models.UUIDField(
         _("Id"),
         primary_key=True,
@@ -25,6 +30,12 @@ class Result(models.Model):
         'test.Scenario',
         on_delete=models.CASCADE,
         db_column="scenario_id",
+        )
+    status = models.CharField(
+        _("Status"),
+        max_length=1,
+        choices=RESULT_STATUS.choices,
+        default=RESULT_STATUS.PENDING
         )
     average_time = models.IntegerField() # i think it need to change !!
     score = models.IntegerField()
