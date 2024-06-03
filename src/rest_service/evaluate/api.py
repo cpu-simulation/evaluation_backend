@@ -23,5 +23,6 @@ class ResultViewSet(
 
 
 class ScenarioViewSet(ReadOnlyModelViewSet):
-    queryset = Scenario.objects.annotate(number_of_steps=Count("steps")).all()
+    queryset = Scenario.objects.\
+        annotate(number_of_steps=Count("steps")).all()
     serializer_class = ScenarioSerializer
