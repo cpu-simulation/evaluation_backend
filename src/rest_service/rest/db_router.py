@@ -1,6 +1,6 @@
 router_dict_based_on_app_name = {
     "team": "evaluation",
-    "test": "evaluation",
+    "evaluate": "evaluation",
 }
 
 class DatabaseRouter:

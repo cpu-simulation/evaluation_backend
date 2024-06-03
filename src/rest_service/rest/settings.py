@@ -47,8 +47,7 @@ INSTALLED_APPS = [
     "rest_framework",
     # Internal Apps
     "team",
-    "result",
-    "test"
+    "evaluate",
 ]
 
 
