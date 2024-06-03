@@ -7,9 +7,3 @@ class ScenarioSerializers(serializers.ModelSerializer):
         model = Scenario
         fields = ["name", "weight"]
 
-
-# class ScenarioStepsSerializers(serializers.ModelSerializer):
-    
-#     class Meta:
-#         model = ScenarioSteps
-#         fields = ["scenario_id", "name", "type", ""]
