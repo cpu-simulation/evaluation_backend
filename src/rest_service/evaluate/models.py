@@ -27,7 +27,7 @@ class Result(models.Model):
         db_column="team_id",
         )
     scenario = models.ForeignKey(
-        'test.Scenario',
+        'evaluate.Scenario',
         on_delete=models.CASCADE,
         db_column="scenario_id",
         )
@@ -66,7 +66,7 @@ class Scenario(models.Model):
         return f"{self.name}"
 
 class ScenarioSteps(models.Model): 
-    scenario_id = models.ForeignKey(Scenario, on_delete=models.CASCADE)
+    scenario = models.ForeignKey(Scenario, on_delete=models.CASCADE, related_name="steps")
     name = models.CharField(max_length=50) 
     type = models.CharField(max_length=50)
     input = ...

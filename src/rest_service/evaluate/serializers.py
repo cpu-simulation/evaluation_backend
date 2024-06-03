@@ -13,3 +13,9 @@ class ResultsSerializer(serializers.ModelSerializer):
             "average_time",
             "score"
         )
+
+class ScenarioSerializer(serializers.ModelSerializer):
+    number_of_steps = serializers.IntegerField()
+    class Meta:
+        model = Scenario
+        fields = "id", "name", "weight","number_of_steps"
