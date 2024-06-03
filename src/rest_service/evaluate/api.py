@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from rest_framework.viewsets import GenericViewSet, mixins 
-from .serializers import ResultsSerializer
+from rest_framework.viewsets import GenericViewSet, mixins
 from .models import Result
-# Create your views here.
+from .serializers import (
+    ResultsSerializer
+)
 
 class ResultViewSet(
     GenericViewSet,

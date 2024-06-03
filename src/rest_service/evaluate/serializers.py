@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Result
+from .models import Result, Scenario
 
 class ResultsSerializer(serializers.ModelSerializer):
     team_name = serializers.CharField(source="team.name")
