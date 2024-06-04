@@ -5,7 +5,7 @@ from . import views
 
 
 router = DefaultRouter()
-router.register('teams', views.TeamViewSet)
+router.register('', views.TeamViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
