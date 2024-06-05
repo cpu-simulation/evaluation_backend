@@ -7,3 +7,5 @@
 - [ ] api schema
 - [ ] frontend
 - [ ] what else 🤔 
+
++ dont we need a requierment file? (i just add drf-api-logger in my venv)
