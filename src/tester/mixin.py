@@ -17,6 +17,7 @@ class ConsumerMixin:
 
     def __test(self, team:Team, scenario:Scenario )-> Result:
         print(f"TEST {team}, with {scenario}")
+        print(scenario.steps)
         print("NOT IMPLEMENTED")
         r = Result()
         r.scenario_id = scenario.id

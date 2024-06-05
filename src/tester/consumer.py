@@ -5,7 +5,7 @@ from models import Team
 from mixin import ConsumerMixin
 import json
 
-mock = json.dumps({"team_id": "5de00e9e-cc32-4e98-bb24-e289917f674e"})
+mock = json.dumps({"team_id": "7c90d362-c443-40da-b428-fab41656dd0f"})
 
 
 def main():
