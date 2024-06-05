@@ -66,14 +66,25 @@ class Scenario(models.Model):
         return f"{self.name}"
 
 class ScenarioSteps(models.Model): 
+    class Type(models.TextChoices):
+        memory_read = "M_R", _("Memory Read")
+        memory_write = "M_W", _("Memory Write")
+        register_read = "R_R", _("Register Read")
+        register_write = "R_W", _("Register Write")
+        cpu_compile  = "C_C", _("CPU Compile")
+        cpu_execute = "C_E", _("CPU execute")
+
     scenario = models.ForeignKey(Scenario,
                                  db_column="scenario_id",
                                  on_delete=models.CASCADE,
                                  related_name="steps")
     name = models.CharField(max_length=50) 
-    type = models.CharField(max_length=50)
-    input = ...
-    output = ...
+    type = models.CharField(
+        max_length=3,
+        choices=Type.choices
+        )
+    input = models.JSONField(default=dict)
+    output = models.JSONField(default=dict)
 
     class Meta:
         verbose_name = _("Scenario Step") 
