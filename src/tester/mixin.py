@@ -17,12 +17,21 @@ class ConsumerMixin:
 
     def __test(self, team:Team, scenario:Scenario )-> Result:
         print(f"TEST {team}, with {scenario}")
-        print(scenario.steps)
-        print("NOT IMPLEMENTED")
+        steps = scenario.steps
+        k = 0 
+        time = 0
+        for step in steps:
+            step.add_eng()
+            try:
+                t = step.apply()
+                k += 1
+                time += t
+            except:
+                break
         r = Result()
         r.scenario_id = scenario.id
-        r.score = 100
         r.team_id = team.id
-        r.average_time = 12
-        r.status = Result.StatusEnum.P
+        r.score = (100* k)/steps.__len__()
+        r.average_time = time/k if k !=0 else 1000000
+        r.status = Result.StatusEnum.P if k == steps.__len__() else Result.StatusEnum.F
         return r
