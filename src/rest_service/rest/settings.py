@@ -161,3 +161,4 @@ DATABASE_ROUTERS = ["rest.db_router.DatabaseRouter"]
 
 
 DRF_API_LOGGER_DATABASE = True
+DRF_LOGGER_QUEUE_MAX_SIZE = 30
