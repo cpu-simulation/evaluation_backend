@@ -5,7 +5,7 @@ from sqlalchemy import types, Enum, JSON, DateTime, Column
 from sqlalchemy import ForeignKey
 import uuid, enum
 from config import Base
-from engines import AbstractEngine
+from .engines import AbstractEngine, MemoryEngine
 
 
 class Scenario(Base):
@@ -29,7 +29,6 @@ class ScenarioStep(Base):
         C_C = "Cpu Compile"
         C_E = "Cpu Execute"
 
-    __eng : AbstractEngine
     __tablename__ = "scenario_steps"
     id: Mapped[int] = MappedColumn(primary_key=True)
     scenario_id: Mapped[int] = MappedColumn(ForeignKey("scenarios.id"))
@@ -41,19 +40,6 @@ class ScenarioStep(Base):
 
     def __repr__(self):
         return f"<ScenarioStep:{self.name}>"
-
-    def add_eng(self):
-        """
-        TODO : add a engine to step
-        """
-        engine_choices: dict[str, AbstractEngine] = {}
-        type: str = ...
-        action = ...
-        c = engine_choices[type]
-        self.__eng = c()
-    def apply(self):
-        self.__eng.check()
-
 
 class Team(Base):
     __tablename__ = "teams"
