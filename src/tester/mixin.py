@@ -1,5 +1,6 @@
 import json
 from models import Team, Scenario, Result
+from models.step_handlers import Handler
 from config import Session
 import uuid
 
@@ -16,16 +17,18 @@ class ConsumerMixin:
         Session.commit()
 
     def __test(self, team:Team, scenario:Scenario )-> Result:
-        print(f"TEST {team}, with {scenario}")
+        print(f"TEST {team}, with {scenario}") #FIXME: What the Hell?? Log this shits instead of print
         steps = scenario.steps
         k = 0 
         time = 0
         for step in steps:
-            step.add_eng()
             try:
-                t = step.apply()
+                handler = Handler(step)
+                valid, step_time = handler.run()
+                if not valid:
+                    break
                 k += 1
-                time += t
+                time += step_time
             except:
                 break
         r = Result()
