@@ -5,7 +5,6 @@ from sqlalchemy import types, Enum, JSON, DateTime, Column
 from sqlalchemy import ForeignKey
 import uuid, enum
 from config import Base
-from .engines import AbstractEngine, MemoryEngine
 
 
 class Scenario(Base):
