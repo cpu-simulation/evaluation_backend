@@ -8,6 +8,7 @@
   - [ ] api schema
   - [ ] teams score
   - [ ] add filter to results
+  - [ ] requirements file
 
 - [ ] test service
   - [ ] logger
@@ -15,6 +16,7 @@
   - [ ] test it
   - [ ] urls of simulations
   - [ ] manifests and docker file
-
+ 
 - [ ] frontend
-- [ ] what else 🤔
+
+- [ ] what else 🤔 
