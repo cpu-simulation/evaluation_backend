@@ -14,6 +14,7 @@
   - [ ] errors and exceptions
   - [ ] test it
   - [ ] urls of simulations
+  - [ ] manifests and docker file
 
 - [ ] frontend
 - [ ] what else 🤔
