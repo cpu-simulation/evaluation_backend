@@ -102,7 +102,7 @@ PROD_CONFIG = {
     "default": DEFAULT_DB_CONFIG,
     'evaluation': {
         'ENGINE': 'django.db.backends.mysql',
-        "HOST": os.environ.get("MYSQL_HOST"),
+        "HOST": os.environ.get("MYSQL_HOST", "mysql"),
         "NAME": os.environ.get("MYSQL_DB"),
         "USER": os.environ.get("MYSQL_USER"),
         "PASSWORD": os.environ.get("MYSQL_PASSWORD"),
