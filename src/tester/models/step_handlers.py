@@ -3,53 +3,48 @@ from .models import ScenarioStep
 import requests
 from datetime import datetime
 
+
 class AbstractStepHandler(ABC):
-    
-    def __init__(self, step:ScenarioStep) -> None:
-        ...
-    
-    @abstractmethod
-    def check(self) -> None:
-        ...
+
+    def __init__(self, step: ScenarioStep) -> None: ...
 
     @abstractmethod
-    def validate(self) -> None:
-        ...
+    def check(self) -> None: ...
 
     @abstractmethod
-    def pre_request(self) -> None:
-        ...
+    def validate(self) -> None: ...
 
     @abstractmethod
-    def send_req(self) -> None:
-        ...
+    def pre_request(self) -> None: ...
+
+    @abstractmethod
+    def send_req(self) -> None: ...
 
     @property
     @abstractmethod
-    def report(self) -> tuple[bool, int]:
-        ...
+    def report(self) -> tuple[bool, int]: ...
 
 
 class BaseHandler(AbstractStepHandler):
-    
-    def __init__(self, step: ScenarioStep, url:str) -> None:
-        if  not isinstance(step, ScenarioStep):
-            raise Exception #TODO: Need a error handler and error class
+
+    def __init__(self, step: ScenarioStep, url: str, status_code=200) -> None:
+        if not isinstance(step, ScenarioStep):
+            raise Exception  # TODO: Need a error handler and error class
         self.__step_input = step.input
         self.__step_exp_output = step.output
         self.__step_name = step.name
         self.__step_type = step.type
         self.url = url
-
+        self.__exp_status_code = status_code
 
     def check(self) -> None:
-        self.__check_host()        
+        self.__check_host()
 
     def __check_host(self):
         try:
             requests.head(self.url)
         except:
-            raise Exception #FIXME: valid error\
+            raise Exception  # FIXME: valid error\
 
     def pre_request(self):
         self.__provide_endpoint()
@@ -59,7 +54,6 @@ class BaseHandler(AbstractStepHandler):
         if self.method == requests.get:
             return
         self.data = {**self.__step_input}
-
 
     def __provide_endpoint(self):
         d = {
@@ -74,27 +68,40 @@ class BaseHandler(AbstractStepHandler):
 
     def send_req(self):
         start_time = datetime.now()
-        response = self.method(self.url+self.endpoint, **self.data)
+        response = self.method(self.url + self.endpoint, **self.data)
         self.response_time = datetime.now() - start_time
-        self.response = response
+        self.response: requests.Response = response
 
-    def validate(self) -> None:
-        self.__validate_output()
-        self.__validate_status_code()
+    def validate(self) -> bool:
+        a = self.__validate_output()
+        b = self.__validate_status_code()
+        self.__is_valid = a and b
+
+    def __validate_output(self) -> bool:
+        response = self.response.json()
+        if response != self.__step_exp_output:
+            return False
+        return True
+
+    def __validate_status_code(self) -> bool:
+        if self.response.status_code != self.__exp_status_code:
+            return False
+        return True
 
     @property
     def report(self) -> tuple[bool, int]:
-        return self.__is_valid , self.response_time
+        return self.__is_valid, self.response_time
 
     def run(self) -> tuple[bool, int]:
         self.check()
         self.pre_request()
         self.send_req()
-        # self.validate()
+        self.validate()
         return self.report
+
 
 class Handler(
     BaseHandler,
-    ):
+):
     def __init__(self, step: ScenarioStep, url: str) -> None:
         super().__init__(step, url)
