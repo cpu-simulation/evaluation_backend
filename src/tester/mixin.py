@@ -29,8 +29,9 @@ class ConsumerMixin:
                     break
                 k += 1
                 time += step_time
-            except:
-                break
+            except Exception as e:
+                #FIXME: Log the exception and then break
+                raise e
         r = Result()
         r.scenario_id = scenario.id
         r.team_id = team.id
