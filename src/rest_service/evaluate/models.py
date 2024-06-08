@@ -26,17 +26,20 @@ class Result(models.Model):
         on_delete=models.CASCADE,
         db_column="team_id",
         )
+    
     scenario = models.ForeignKey(
         'evaluate.Scenario',
         on_delete=models.CASCADE,
         db_column="scenario_id",
         )
+    
     status = models.CharField(
         _("Status"),
         max_length=1,
         choices=RESULT_STATUS.choices,
         default=RESULT_STATUS.PENDING
         )
+    
     average_time = models.IntegerField()
     score = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add = True)
