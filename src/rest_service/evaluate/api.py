@@ -16,6 +16,7 @@ class ResultViewSet(
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin
     ):
+    
     serializer_class = ResultsSerializer
     queryset = Result.objects\
         .select_related("team").all()
