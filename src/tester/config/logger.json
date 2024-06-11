@@ -32,7 +32,7 @@
       "stream": "ext://sys.stdout"
     },
     "sys_logger": {
-      "level": "DEBUG",
+      "level": "INFO",
       "class": "logging.handlers.SysLogHandler",
       "facility": "local7",
       "address": "/dev/log",
@@ -40,13 +40,13 @@
     },
     "stderr": {
       "class": "logging.StreamHandler",
-      "level": "WARNING",
+      "level": "ERROR",
       "formatter": "simple",
       "stream": "ext://sys.stderr"
     },
     "file_json": {
       "class": "logging.handlers.RotatingFileHandler",
-      "level": "DEBUG",
+      "level": "INFO",
       "formatter": "json",
       "filename": "logs/my_app.log.json",
       "maxBytes": 10000,
