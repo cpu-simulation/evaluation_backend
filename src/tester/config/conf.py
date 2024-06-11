@@ -14,6 +14,7 @@ Base = declarative_base()
 RABBIT = os.environ.get("RABBITMQ_URL", "rabbitmq")
 TEST_QUEUE = os.environ.get("TEST_QUEUE", "Test_Queue")
 
+# Logger config
 logger_file = open("config/logger.json")
 LOGGING = json.loads(logger_file.read())
 logger_file.close()
