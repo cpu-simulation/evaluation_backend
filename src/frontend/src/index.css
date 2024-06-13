@@ -8,6 +8,7 @@
 
 body {
   margin: 0;
+  font-family: 'Jomolhari';
 }
 
 .winner .container {
@@ -41,6 +42,7 @@ body {
 html,
 body,
 #theme-provider,
+#root,
 .main-page {
   height: 100%;
   overflow: hidden;

@@ -1,14 +1,16 @@
-function TestCard({ selected = false }: { selected?: boolean }) {
+function TestCard({ scenario, selected = false }:
+    { selected?: boolean, scenario: any }) {
     return (
-        <div className={"test-card flex justify-between gap-3 px-6 py-4 rounded-xl items-center w-full "
-            + (selected ? "bg-[--dark-surface] text-[--on-dark-surface] cursor-default" : "bg-white text-black cursor-pointer")
-            + (!selected && " hover:bg-[--lighter-surface]")
-        }>
+        <div onClick={() => { }}
+            className={"test-card flex justify-between gap-3 px-6 py-4 rounded-xl items-center w-full "
+                + (selected ? "bg-[--dark-surface] text-[--on-dark-surface] cursor-default" : "bg-white text-black cursor-pointer")
+                + (!selected && " hover:bg-[--lighter-surface]")
+            }>
             <span className={"py-2 px-4 rounded-3xl text-center "
                 + (selected
                     ? "bg-[--light-surface] text-[--on-light-surface]"
                     : "bg-[--darker-surface] text-[--on-darker-surface]")}>
-                Test A
+                {scenario.name}
             </span>
             <TestDetail name="Success Rate" value="90%" />
             <TestDetail name="State" value="pass" />

@@ -1,9 +1,8 @@
-'use client'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode, useState } from 'react'
 const ThemeProvider = ({ children }: { children: ReactNode }) => {
 
   // const themeConfig = "auto"
-  const [theme, setTheme] = useState('light')
+  const [theme, _setTheme] = useState('light')
   // useEffect(() => {
   //   if (themeConfig === 'auto') {
   //     setTheme(getOsTheme())

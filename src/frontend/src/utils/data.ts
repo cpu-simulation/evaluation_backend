@@ -47,3 +47,26 @@ export const teams: Team[] = [
         rank: 9
     }
 ]
+
+export const scenarios = [
+    {
+        "id": 0,
+        "name": "Test 1",
+    },
+    {
+        "id": 1,
+        "name": "Test 2",
+    },
+    {
+        "id": 2,
+        "name": "Test 3",
+    },
+    {
+        "id": 3,
+        "name": "Test 4",
+    },
+    {
+        "id": 4,
+        "name": "Test 5",
+    }
+]
