@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from .models import ScenarioStep
 import requests
 from datetime import datetime
-
+from config.exceptions import MyBaseException as SysException
 
 class AbstractStepHandler(ABC):
 
@@ -29,7 +29,10 @@ class BaseHandler(AbstractStepHandler):
 
     def __init__(self, step: ScenarioStep, url: str, status_code=200) -> None:
         if not isinstance(step, ScenarioStep):
-            raise Exception  # TODO: Need a error handler and error class
+            raise SysException(
+                level=40,
+                msg=f"models.step_handler.BaseHandler {step} is not a step instance"
+                )
         self.__step_input = step.input
         self.__step_exp_output = step.output
         self.__step_name = step.name
@@ -44,7 +47,10 @@ class BaseHandler(AbstractStepHandler):
         try:
             requests.head(self.url)
         except:
-            raise Exception  # FIXME: valid error\
+            raise SysException(
+                level=30,
+                msg=f"[HostNotReachable]: cant reach host: {self.url}"
+            )
 
     def pre_request(self):
         self.__provide_endpoint()
