@@ -33,7 +33,7 @@ class ConsumerMixin:
                 k += 1
                 time += step_time
             except Exception as e:
-                #FIXME: Log the exception and then break
+                logger.error(f"failed to run an step test with as step={step.__str__()}")
                 raise e
         r = Result()
         r.scenario_id = scenario.id
