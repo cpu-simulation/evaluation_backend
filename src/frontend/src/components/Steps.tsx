@@ -17,16 +17,6 @@ function Steps() {
                     <br />
                     <span>success --- 0.1 seconds</span>
                 </li>
-                <li>
-                    <span className="text-[--primary]">Step 4</span>
-                    <br />
-                    <span>success --- 0.1 seconds</span>
-                </li>
-                <li>
-                    <span className="text-[--primary]">Step 5</span>
-                    <br />
-                    <span>success --- 0.1 seconds</span>
-                </li>
             </ul>
         </div>
     )

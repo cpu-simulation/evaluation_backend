@@ -2,14 +2,67 @@ import Sidebar from './components/Sidebar';
 import TestCard from './components/TestCard';
 import Steps from './components/Steps';
 import Ranking from './components/Ranking';
-import { teams, scenarios } from "./utils/data";
+import { useEffect, useState } from 'react';
+import { getTeams } from './actions/teams';
+import { Result, Scenario, Team } from './utils/types';
+import { getResults, getScenarios } from './actions/tests';
 
 const filters = ["website", "core"]
 
 function App() {
+  const [selectedTeam, setSelectedTeam] = useState<Team>()
+  const [teams, setTeams] = useState<Team[]>([])
+  const [scenarios, setScenarios] = useState<Scenario[]>([])
+  const [results, setResults] = useState<Result[]>([])
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState()
+
+  useEffect(() => {
+    setLoading(true)
+    getTeams()
+      .then(teams => {
+        setTeams(teams)
+        if (teams.length > 0)
+          setSelectedTeam(teams[0])
+        setLoading(false)
+      })
+      .catch(e => {
+        console.error(e)
+        setError(e)
+      })
+
+    getScenarios()
+      .then(setScenarios)
+      .catch(e => {
+        console.error(e)
+        setError(e)
+      })
+  }, [])
+
+  useEffect(() => {
+    if (selectedTeam) {
+      setResults([])
+      getResults(selectedTeam).then(setResults).catch(e => {
+        console.error(e)
+        setError(e)
+      })
+    }
+  }, [selectedTeam])
+
+  if (error)
+    return <div className='h-full w-full flex flex-col gap-2 justify-center items-center'>
+      <h1 className='text-center text-2xl'>Unexpected Error !</h1>
+      <p>check console for more information or refresh the page</p>
+    </div>
+
+  if (loading)
+    return <h1 className='text-center mt-8 text-lg'>Loading ...</h1>
+
+
+  const ranking = [...teams].sort((a, b) => b.total_score - a.total_score)
   return (
     <div className="main-page flex">
-      <Sidebar teams={teams} filters={filters} />
+      <Sidebar teams={teams} setSelectedTeam={setSelectedTeam} filters={filters} winners={ranking.slice(0, 3)} />
       <main className="flex min-h-screen py-10 px-6 flex-1 gap-4">
         <div className='flex justify-center flex-1'>
           <div className="tests flex flex-col gap-4 w-full max-w-[550px] overflow-y-scroll no-scrollbar">
@@ -20,8 +73,10 @@ function App() {
             </div>
             {
               scenarios.map((scenario, index) => {
-                return <TestCard key={index} scenario={scenario} />
-              })}
+                const result = results.find(r => r.scenario === scenario.id)
+                return <TestCard key={index} scenario={scenario} result={result} />
+              })
+            }
             <hr className='flex-1 border-white' />
           </div>
         </div>
@@ -32,7 +87,7 @@ function App() {
           </div>
           <div className="ranking flex-1 flex flex-col gap-2 overflow-hidden">
             <div className='text-lg font-bold'>Ranking</div>
-            <Ranking teams={teams.sort((a, b) => a.rank - b.rank)} />
+            <Ranking ranking={ranking} />
           </div>
         </div>
       </main>

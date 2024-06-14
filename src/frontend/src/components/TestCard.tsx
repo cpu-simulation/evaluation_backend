@@ -1,10 +1,19 @@
-function TestCard({ scenario, selected = false }:
-    { selected?: boolean, scenario: any }) {
+import { Result, Scenario, PlaceholderResult } from "../utils/types"
+
+const r: PlaceholderResult = {
+    score: "---",
+    state: "---",
+    average_time: "---"
+}
+
+
+function TestCard({ scenario, result = r, selected = false }:
+    { selected?: boolean, result?: Result | PlaceholderResult, scenario: Scenario }) {
     return (
         <div onClick={() => { }}
-            className={"test-card flex justify-between gap-3 px-6 py-4 rounded-xl items-center w-full "
-                + (selected ? "bg-[--dark-surface] text-[--on-dark-surface] cursor-default" : "bg-white text-black cursor-pointer")
-                + (!selected && " hover:bg-[--lighter-surface]")
+            className={"test-card flex justify-between gap-3 px-6 py-4 rounded-xl items-center w-full cursor-default "
+                + (selected ? "bg-[--dark-surface] text-[--on-dark-surface]" : "bg-white text-black")
+                // + (!selected && " hover:bg-[--lighter-surface]")
             }>
             <span className={"py-2 px-4 rounded-3xl text-center "
                 + (selected
@@ -12,14 +21,14 @@ function TestCard({ scenario, selected = false }:
                     : "bg-[--darker-surface] text-[--on-darker-surface]")}>
                 {scenario.name}
             </span>
-            <TestDetail name="Success Rate" value="90%" />
-            <TestDetail name="State" value="pass" />
-            <TestDetail name="Run Time" value="3.2 seconds" />
+            <TestDetail name="Score" value={result.score} />
+            <TestDetail name="State" value={result.state} />
+            <TestDetail name="Run Time" value={result.average_time} />
         </div>
     )
 }
 
-function TestDetail({ name, value }: { name: string, value: string }) {
+function TestDetail({ name, value }: { name: string, value: number | string }) {
     return <div className="flex flex-col items-center text-center">
         <span className="text-md">{name}</span>
         <span className="text-sm">{value}</span>

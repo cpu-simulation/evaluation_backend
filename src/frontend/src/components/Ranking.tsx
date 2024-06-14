@@ -17,17 +17,19 @@ function background(index: number) {
     return `rgba(${bg}, ${(1 / (index ** 1.25))}`
 }
 
-function Ranking({ teams }: { teams: Team[] }) {
+function Ranking({ ranking }: { ranking: Team[] }) {
     return (
         <div className="bg-[--dark-surface] rounded-xl py-3 px-4 flex flex-col gap-2 overflow-scroll flex-1">
-            {teams.map((team, index) => {
+            {ranking.map((team, index) => {
                 return <div key={index} className={
                     "rounded-md flex gap-1 px-4 py-2 items-center " +
-                    (index < teams.length / 3 ? "text-[--ranking-winners]" : "text-[--ranking-others]")
+                    (index < ranking.length / 3 ? "text-[--ranking-winners]" : "text-[--ranking-others]")
                 } style={{ backgroundColor: background(index + 1) }}>
                     <span className="relative">
-                        <span>{team.rank}</span>
-                        <span className="absolute text-[13px] translate-x-[3px] translate-y-[-4px]">{suffix(team.rank)}</span>
+                        <span>{index + 1}</span>
+                        <span className="absolute text-[13px] translate-x-[3px] translate-y-[-4px]">
+                            {suffix(index + 1)}
+                        </span>
                     </span>
                     <span className="text-center flex-1">{team.name}</span>
                 </div>
