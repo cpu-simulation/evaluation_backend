@@ -4,6 +4,8 @@
 
 - [ ] Rest service
   - [ ] admin panels <https://github.com/cpu-simulation/evaluation_backend/issues/14#issue-2330736546>
+  - [ ] route for init test on a team
+  - [ ] filter for results
   - [ ] logger
   - [ ] api schema
   - [ ] teams score
