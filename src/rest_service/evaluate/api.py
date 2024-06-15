@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.db.models import Count
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.viewsets import (
     GenericViewSet,
     mixins,
@@ -14,13 +15,15 @@ from .serializers import (
 class ResultViewSet(
     GenericViewSet,
     mixins.ListModelMixin,
-    mixins.RetrieveModelMixin
-    ):
+    mixins.RetrieveModelMixin):
+
     
     serializer_class = ResultsSerializer
     queryset = Result.objects\
         .select_related("team").all()
-
+    
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['team']
 
 
 class ScenarioViewSet(ReadOnlyModelViewSet):
