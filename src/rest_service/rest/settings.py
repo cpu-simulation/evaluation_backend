@@ -45,11 +45,16 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     #Plugins
     "rest_framework",
-    'drf_api_logger',
+    "django_filters",
+    "drf_api_logger",
     # Internal Apps
     "team",
     "evaluate",
 ]
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+# }
 
 
 MIDDLEWARE = [
