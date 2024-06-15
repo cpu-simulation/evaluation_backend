@@ -21,5 +21,6 @@ RUN pip install --no-cache-dir --requirement /app/req.pip
 COPY . .
 
 EXPOSE 8000
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+ENTRYPOINT [ "python3", "manage.py" ]
+CMD ["runserver", "0.0.0.0:8000"]
 

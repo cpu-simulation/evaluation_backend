@@ -44,7 +44,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     #Plugins
-    "rest_framework"
+    "rest_framework",
+    'drf_api_logger',
+    # Internal Apps
+    "team",
+    "evaluate",
 ]
 
 
@@ -56,6 +60,8 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
+    'drf_api_logger.middleware.api_logger_middleware.APILoggerMiddleware',
 ]
 
 ROOT_URLCONF = "rest.urls"
@@ -82,23 +88,32 @@ WSGI_APPLICATION = "rest.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-SQLITE_CONFIG  = {
-    "default": {
+DEFAULT_DB_CONFIG = {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
     }
-}
 
-MYSQL_CONFIG = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'OPTIONS': {
-            'read_default_file': f'{BASE_DIR}/mariadb.cnf',
-        },
+DEV_CONFIG  = {
+    "default": DEFAULT_DB_CONFIG,
+    "evaluation": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "evaluation.sqlite3",
     }
 }
 
-DATABASES = SQLITE_CONFIG if DEBUG else MYSQL_CONFIG
+PROD_CONFIG = {
+    "default": DEFAULT_DB_CONFIG,
+    'evaluation': {
+        'ENGINE': 'django.db.backends.mysql',
+        "HOST": os.environ.get("MYSQL_HOST", "mysql"),
+        "NAME": os.environ.get("MYSQL_DB"),
+        "USER": os.environ.get("MYSQL_USER"),
+        "PASSWORD": os.environ.get("MYSQL_PASSWORD"),
+        'PORT': int(os.environ.get("MYSQL_PORT", 3306))
+    }
+}
+
+DATABASES = DEV_CONFIG if DEBUG else PROD_CONFIG
 
 
 # Password validation
@@ -141,3 +156,9 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+DATABASE_ROUTERS = ["rest.db_router.DatabaseRouter"]
+
+
+DRF_API_LOGGER_DATABASE = True
+DRF_LOGGER_QUEUE_MAX_SIZE = 30
