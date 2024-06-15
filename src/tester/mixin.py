@@ -3,6 +3,9 @@ from models import Team, Scenario, Result
 from models.step_handlers import Handler
 from config import Session
 import uuid
+import logging
+
+logger = logging.getLogger(__name__)
 
 class ConsumerMixin:
     def callback(self, body):
@@ -17,7 +20,7 @@ class ConsumerMixin:
         Session.commit()
 
     def __test(self, team:Team, scenario:Scenario )-> Result:
-        print(f"TEST {team}, with {scenario}") #FIXME: What the Hell?? Log this shits instead of print
+        logger.info(f"TEST {team}, with {scenario}")
         steps = scenario.steps
         k = 0 
         time = 0
