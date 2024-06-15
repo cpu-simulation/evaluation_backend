@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os
+import os, json
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -162,3 +162,8 @@ DATABASE_ROUTERS = ["rest.db_router.DatabaseRouter"]
 
 DRF_API_LOGGER_DATABASE = True
 DRF_LOGGER_QUEUE_MAX_SIZE = 30
+
+LOGGER_CONF_FILE = open("rest/logger.json")
+LOGGS_DIR = BASE_DIR / "logs"
+LOGGS_DIR.mkdir(exist_ok=True)
+LOGGING = json.loads(LOGGER_CONF_FILE.read())
