@@ -7,13 +7,12 @@
   - [ ] route for init test on a team
   - [ ] filter for results
   - [ ] logger
-  - [ ] api schema
-  - [ ] teams score
-  - [ ] add filter to results
+  - [x] api schema
+  - [x] teams score
   - [ ] requirements file
 
 - [ ] test service
-  - [ ] logger
+  - [x] logger
   - [ ] errors and exceptions
   - [ ] test it
   - [ ] urls of simulations
