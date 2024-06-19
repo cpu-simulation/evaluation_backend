@@ -24,6 +24,10 @@ class Team(models.Model):
     
     members = models.JSONField(default=list)
 
+    type = models.BooleanField() # 0 = core | 1 = website
+
+    template = models.BooleanField() # 0 = not used temp | 1 = used temp 
+
     class Meta:
         verbose_name = _("Team")
         verbose_name_plural = _("Teams")
