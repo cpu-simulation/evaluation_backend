@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from ..models.models import ScenarioStep
+from models import ScenarioStep
 import requests
 from datetime import datetime
 from core.exceptions import MyBaseException as SysException
