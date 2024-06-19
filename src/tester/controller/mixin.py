@@ -60,8 +60,8 @@ class ConsumerMixin:
         time = 0
         for step in steps:
             try:
-            
-                handler = Handler(step)
+                url = f"simulation-{team.name}"
+                handler = Handler(step, url)
                 valid, step_time = handler.run()
                 if not valid:
                     break
@@ -75,7 +75,7 @@ class ConsumerMixin:
                     "A base exception raised while running a step. error=%s",
                     e.msg
                     )
-                break
+                raise e
 
             except Exception as e:
                 logger.error(
