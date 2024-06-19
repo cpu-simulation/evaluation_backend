@@ -32,17 +32,19 @@ class ConsumerMixin:
             return e
 
     def calculate_score_by_results(self, results):
-        ... # TODO
+        score = 0
+        for r in results: score+=r.score
+        return score
 
     def insert_to_influx(self, team, score):
         ... # TODO
 
-    def insert_to_mysql(*, results):
+    def insert_to_mysql(self, results):
         logger.info("commit results of team to mysql")
         Session.add_all(results)
         Session.commit()
 
-    def find_team(*, id) -> Team:
+    def find_team(self, id) -> Team:
         logger.info(f"query mysql for team with id={id}")
         id = uuid.UUID(id)
         team = Session.query(Team).filter_by(id=id).first()
@@ -77,7 +79,7 @@ class ConsumerMixin:
 
             except Exception as e:
                 logger.error(
-                    f"failed to run an step test with as step={step.__str__()}"
+                    f"failed to run an step test with as step={step.__str__()}, e={e}"
                     )
                     
                 raise e
