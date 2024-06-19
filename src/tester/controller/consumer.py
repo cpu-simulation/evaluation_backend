@@ -32,7 +32,7 @@ class Consumer(ConsumerMixin):
             ch.basic_ack(delivery_tag=method.delivery_tag)
             return
         elif isinstance(err, MyBaseException):
-            logger.error("[FAILED_TO_TEST] failed to test. %s", err)
+            logger.warning("[FAILED_TO_TEST] failed to test. %s", err)
         elif isinstance(err, Exception):
             logger.error(f"[SystemError]: {err}")
         ch.basic_nack(delivery_tag=method.delivery_tag)
