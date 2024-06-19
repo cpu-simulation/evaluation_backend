@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
-from .models import ScenarioStep
+from ..models.models import ScenarioStep
 import requests
 from datetime import datetime
-from config.exceptions import MyBaseException as SysException
+from core.exceptions import MyBaseException as SysException
 
 class AbstractStepHandler(ABC):
 
