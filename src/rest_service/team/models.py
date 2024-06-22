@@ -26,7 +26,7 @@ class Team(models.Model):
 
     type = models.BooleanField() # 0 = core | 1 = website
 
-    template = models.BooleanField() # 0 = not used temp | 1 = used temp 
+    used_template = models.BooleanField() # 0 = not used temp | 1 = used temp 
 
     class Meta:
         verbose_name = _("Team")
