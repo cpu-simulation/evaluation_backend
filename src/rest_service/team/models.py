@@ -24,7 +24,7 @@ class Team(models.Model):
     
     members = models.JSONField(default=list)
 
-    type = models.BooleanField() # 0 = core | 1 = website
+    has_website = models.BooleanField() # 0 = core | 1 = website
 
     used_template = models.BooleanField() # 0 = not used temp | 1 = used temp 
 
