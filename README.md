@@ -1,5 +1,11 @@
 # evaluation_backend
 
+## Docs:
+- [tester service](src/tester/README.md)
+- [rest service](src/rest_service/README.md)
+- [frontend](src/frontend/README.md) UNDER CONSTRUCTION
+- [deployment](DEPLOY.md)
+
 ## Tasks
 
 - [ ] Rest service
