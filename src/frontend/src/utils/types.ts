@@ -5,6 +5,10 @@ export type Team = {
     total_score: number
 }
 
+export type History = {
+    [key: string]: number
+}
+
 export type Scenario = {
     id: number,
     name: string
@@ -13,7 +17,7 @@ export type Scenario = {
 export type Result = {
     id: string,
     scenario: number,
-    state: "WAITING" | "PASSED" | "FAILED"
+    state: "FAILED" | "DONE" | "PENDING"
     score: number,
     average_time: number
 }

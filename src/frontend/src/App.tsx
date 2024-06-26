@@ -1,11 +1,10 @@
 import Sidebar from './components/Sidebar';
 import TestCard from './components/TestCard';
-import Steps from './components/Steps';
 import Ranking from './components/Ranking';
 import { useEffect, useState } from 'react';
-import { getTeams } from './actions/teams';
-import { Result, Scenario, Team } from './utils/types';
-import { getResults, getScenarios } from './actions/tests';
+import { Result, Scenario, Team, History } from './utils/types';
+import * as lib from './lib';
+import HistoryChart from './components/HistoryChart';
 
 const filters = ["website", "core"]
 
@@ -13,13 +12,14 @@ function App() {
   const [selectedTeam, setSelectedTeam] = useState<Team>()
   const [teams, setTeams] = useState<Team[]>([])
   const [scenarios, setScenarios] = useState<Scenario[]>([])
+  const [history, setHistory] = useState<History>({})
   const [results, setResults] = useState<Result[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState()
 
   useEffect(() => {
     setLoading(true)
-    getTeams()
+    lib.getTeams()
       .then(teams => {
         setTeams(teams)
         if (teams.length > 0)
@@ -31,7 +31,7 @@ function App() {
         setError(e)
       })
 
-    getScenarios()
+    lib.getScenarios()
       .then(setScenarios)
       .catch(e => {
         console.error(e)
@@ -39,14 +39,35 @@ function App() {
       })
   }, [])
 
-  useEffect(() => {
+  const getResult = () => {
     if (selectedTeam) {
       setResults([])
-      getResults(selectedTeam).then(setResults).catch(e => {
+      lib.getResults(selectedTeam).then(setResults).catch(e => {
         console.error(e)
         setError(e)
       })
     }
+  }
+
+  const runTests = () => {
+    if (selectedTeam)
+      lib.runTests(selectedTeam).then(getResult).catch(e => {
+        console.error(e)
+        setError(e)
+      })
+  }
+
+  const getHistory = () => {
+    if (selectedTeam)
+      lib.getHistory(selectedTeam).then(setHistory).catch(e => {
+        console.error(e)
+        setError(e)
+      })
+  }
+
+  useEffect(() => {
+    getResult()
+    getHistory()
   }, [selectedTeam])
 
   if (error)
@@ -69,7 +90,10 @@ function App() {
             <div className='flex items-center gap-2'>
               <span className='text-[--primary] text-lg'>Tests ({scenarios.length})</span>
               <hr className='flex-1 border-white' />
-              <button className='py-[6px] px-4 rounded-full bg-[--primary] text-[--on-primary] text-sm'>Run Tests</button>
+              <button onClick={runTests}
+                className='py-[6px] px-4 rounded-full bg-[--primary] text-[--on-primary] text-sm'>
+                Run Tests
+              </button>
             </div>
             {
               scenarios.map((scenario, index) => {
@@ -80,10 +104,10 @@ function App() {
             <hr className='flex-1 border-white' />
           </div>
         </div>
-        <div className="details flex flex-col gap-4 w-[300px] bg-[--darker-surface] py-3 px-4 rounded-xl text-[--on-darker-surface]">
+        <div className="details flex flex-col gap-4 w-[350px] bg-[--darker-surface] py-3 px-4 rounded-xl text-[--on-darker-surface]">
           <div className="steps">
-            <div className='text-lg mb-2 font-bold'>Steps</div>
-            <Steps />
+            <div className='text-lg mb-2 font-bold'>History</div>
+            <HistoryChart history={history} />
           </div>
           <div className="ranking flex-1 flex flex-col gap-2 overflow-hidden">
             <div className='text-lg font-bold'>Ranking</div>
