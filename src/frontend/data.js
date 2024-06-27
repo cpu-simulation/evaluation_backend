@@ -2,57 +2,51 @@ export const teams = [
     {
         id: "a",
         name: "Team A",
-        type: "website",
+        has_website: true,
         total_score: 1,
     },
     {
         id: "b",
         name: "Team B",
-        type: "website",
+        has_website: true,
         total_score: 3,
     },
     {
         id: "c",
         name: "Team C",
-        type: "website",
+        has_website: true,
         total_score: 4,
     },
     {
         id: "d",
         name: "Team D",
-        type: "website",
+        has_website: true,
         total_score: 2,
     },
     {
         id: "e",
         name: "Team E",
-        type: "webiste",
+        has_website: false,
         total_score: 7,
     },
     {
         id: "f",
         name: "Team F",
-        type: "core",
+        has_website: false,
         total_score: 6,
     },
     {
         id: "g",
         name: "Team G",
-        type: "core",
+        has_website: false,
         total_score: 5,
     },
     {
         id: "h",
         name: "Team H",
-        type: "core",
+        has_website: false,
         total_score: 8,
     },
-    {
-        id: "i",
-        name: "Team I",
-        type: "core",
-        total_score: 9
-    }
 ]
 
 export const scenarios = [
@@ -81,35 +75,35 @@ export const scenarios = [
 export const results = [
     {
         id: "1234",
-        state: "DONE",
+        status: "DONE",
         score: 4,
         average_time: 1.2,
         scenario: 0
     },
     {
         id: "4523",
-        state: "WAITING",
+        status: "WAITING",
         score: 1,
         average_time: 0,
         scenario: 1
     },
     {
         id: "1234",
-        state: "DONE",
+        status: "DONE",
         score: 4,
         average_time: 2.2,
         scenario: 2
     },
     {
         id: "1234",
-        state: "DONE",
+        status: "DONE",
         score: 3,
         average_time: 1.7,
         scenario: 3
     },
     {
         id: "24af",
-        state: "DONE",
+        status: "DONE",
         score: 3,
         average_time: 1.7,
         scenario: 4

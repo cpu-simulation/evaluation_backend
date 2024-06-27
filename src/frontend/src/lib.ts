@@ -2,7 +2,7 @@ import { Team } from "./utils/types";
 
 export async function getTeams() {
     try {
-        const res = await fetch(`/evaluation/teams`)
+        const res = await fetch("/api/v1/teams")
         const teams = await res.json()
         return teams
     } catch (err: any) {
@@ -13,7 +13,7 @@ export async function getTeams() {
 
 export async function getResults(team: Team) {
     try {
-        const res = await fetch(`/evaluation/results/${team.id}`)
+        const res = await fetch(`/api/v1/evaluation/results/?team=${team.id}`)
         const results = await res.json()
         return results
     } catch (err: any) {
@@ -24,7 +24,7 @@ export async function getResults(team: Team) {
 
 export async function getHistory(team: Team) {
     try {
-        const res = await fetch(`/evaluation/history/${team.id}`)
+        const res = await fetch(`/api/v1/team/${team.id}/history`)
         const results = await res.json()
         return results
     } catch (err: any) {
@@ -36,7 +36,7 @@ export async function getHistory(team: Team) {
 
 export async function getScenarios() {
     try {
-        const res = await fetch(`/evaluation/scenarios`)
+        const res = await fetch("/api/v1/evaluation/scenarios")
         const results = await res.json()
         return results
     } catch (err: any) {
@@ -47,7 +47,7 @@ export async function getScenarios() {
 
 export async function runTests(team: Team) {
     try {
-        await fetch(`/evaluation/test/${team.id}`, {
+        await fetch(`/api/v1/team/${team.id}/test`, {
             method: "POST"
         })
     } catch (err: any) {

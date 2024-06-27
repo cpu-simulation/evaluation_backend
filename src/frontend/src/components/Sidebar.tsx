@@ -3,11 +3,14 @@ import profile from "../utils/icons/profile.svg"
 import crown from "../utils/icons/crown.svg"
 import { Team } from "../utils/types"
 
-function Sidebar({ teams, winners, filters, setSelectedTeam }:
-    { teams: Team[], winners: Team[], filters: string[], setSelectedTeam: Function }) {
+const filters = ["website", "core"]
+function Sidebar({ teams, winners, setSelectedTeam }:
+    { teams: Team[], winners: Team[], setSelectedTeam: Function }) {
     const [selectedFilter, _setSelectedFilter] = useState(filters[0])
     const [selectedIndex, setSelectedIndex] = useState(0)
-    const teamsList = teams.filter(team => team.type === selectedFilter)
+    const teamsList = teams.filter(team =>
+        selectedFilter === "website" ? team.has_website : !team.has_website
+    )
 
     useEffect(() => {
         setSelectedTeam(teamsList[selectedIndex])

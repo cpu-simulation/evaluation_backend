@@ -6,8 +6,6 @@ import { Result, Scenario, Team, History } from './utils/types';
 import * as lib from './lib';
 import HistoryChart from './components/HistoryChart';
 
-const filters = ["website", "core"]
-
 function App() {
   const [selectedTeam, setSelectedTeam] = useState<Team>()
   const [teams, setTeams] = useState<Team[]>([])
@@ -83,7 +81,7 @@ function App() {
   const ranking = [...teams].sort((a, b) => b.total_score - a.total_score)
   return (
     <div className="main-page flex">
-      <Sidebar teams={teams} setSelectedTeam={setSelectedTeam} filters={filters} winners={ranking.slice(0, 3)} />
+      <Sidebar teams={teams} setSelectedTeam={setSelectedTeam} winners={ranking.slice(0, 3)} />
       <main className="flex min-h-screen py-10 px-6 flex-1 gap-4">
         <div className='flex justify-center flex-1'>
           <div className="tests flex flex-col gap-4 w-full max-w-[550px] overflow-y-scroll no-scrollbar">

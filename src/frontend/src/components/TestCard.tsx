@@ -2,7 +2,7 @@ import { Result, Scenario, PlaceholderResult } from "../utils/types"
 
 const r: PlaceholderResult = {
     score: "---",
-    state: "---",
+    status: "---",
     average_time: "---"
 }
 
@@ -22,7 +22,7 @@ function TestCard({ scenario, result = r, selected = false }:
                 {scenario.name}
             </span>
             <TestDetail name="Score" value={result.score} />
-            <TestDetail name="State" value={result.state} />
+            <TestDetail name="State" value={result.status} />
             <TestDetail name="Run Time" value={result.average_time} />
         </div>
     )

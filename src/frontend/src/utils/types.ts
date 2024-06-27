@@ -1,7 +1,7 @@
 export type Team = {
     id: string,
     name: string,
-    type: string,
+    has_website: boolean,
     total_score: number
 }
 
@@ -17,13 +17,13 @@ export type Scenario = {
 export type Result = {
     id: string,
     scenario: number,
-    state: "FAILED" | "DONE" | "PENDING"
+    status: "FAILED" | "DONE" | "PENDING"
     score: number,
     average_time: number
 }
 
 export type PlaceholderResult = {
     score: string,
-    state: string,
+    status: string,
     average_time: string
 }
