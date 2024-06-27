@@ -19,12 +19,12 @@
 
 - [ ] test service
   - [x] logger
-  - [ ] return the q message 
-  - [ ] errors and exceptions
+  - [x] return the q message 
+  - [x] errors and exceptions
   - [ ] test it
   - [ ] urls of simulations
   - [ ] manifests and docker file
  
-- [ ] frontend
+- [x] frontend
 
 - [ ] what else 🤔 
