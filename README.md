@@ -9,13 +9,14 @@
 ## Tasks
 
 - [ ] Rest service
-  - [ ] admin panels <https://github.com/cpu-simulation/evaluation_backend/issues/14#issue-2330736546>
+  - [x] admin panels 
   - [ ] route for init test on a team
   - [x] filter for results
   - [x] logger
   - [x] api schema
   - [x] teams score
   - [ ] requirements file
+  - [ ] history endpoint
 
 - [ ] test service
   - [x] logger
