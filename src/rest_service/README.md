@@ -27,6 +27,7 @@ I failed to configure `queue_handler` in logger as i did for test service.
 but who cares. no one even reads this doc.
 but if you think you can configure that, do not hesitate. you know how to contribute. 
 
+this app has syslog output for logs too. so you can use **grafana LOKI** for logs 
 
 this service also uses **DRF_API_LOGGER**. if you ask me, it's not needed but nice to have
 
