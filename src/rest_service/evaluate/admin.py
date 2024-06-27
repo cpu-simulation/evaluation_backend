@@ -3,5 +3,12 @@ from .models import Result, Scenario, ScenarioSteps
 # Register your models here.
 
 admin.site.register(Result)
-admin.site.register(Scenario)
-admin.site.register(ScenarioSteps)
+
+
+class InlineScenarioSteps(admin.TabularInline):
+    model = ScenarioSteps
+
+
+@admin.register(Scenario)
+class ScenarioAdmin(admin.ModelAdmin):
+    inlines = InlineScenarioSteps,

@@ -3,28 +3,29 @@
 ## Docs:
 - [tester service](src/tester/README.md)
 - [rest service](src/rest_service/README.md)
-- [frontend](src/frontend/README.md) UNDER CONSTRUCTION
+- [frontend](src/frontend/README.md)
 - [deployment](DEPLOY.md)
 
 ## Tasks
 
 - [ ] Rest service
-  - [ ] admin panels <https://github.com/cpu-simulation/evaluation_backend/issues/14#issue-2330736546>
+  - [x] admin panels 
   - [ ] route for init test on a team
   - [x] filter for results
   - [x] logger
   - [x] api schema
   - [x] teams score
   - [ ] requirements file
+  - [ ] history endpoint
 
 - [ ] test service
   - [x] logger
-  - [ ] return the q message 
-  - [ ] errors and exceptions
+  - [x] return the q message 
+  - [x] errors and exceptions
   - [ ] test it
   - [ ] urls of simulations
   - [ ] manifests and docker file
  
-- [ ] frontend
+- [x] frontend
 
 - [ ] what else 🤔 

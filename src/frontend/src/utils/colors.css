@@ -1,0 +1,17 @@
+#theme-provider[data-theme="light"] {
+    --background: #e4edec;
+    --on-background: #101010;
+    --primary: #D7A30F;
+    --on-primary: #ffffff;
+    --darker-surface: #304543;
+    --on-darker-surface: #ffffff;
+    --dark-surface: #38514E;
+    --on-dark-surface: #ffffff;
+    --lighter-surface: #c1d6d4;
+    --on-light-surface: #ffffff;
+    --outline: #ffffff;
+    --light-surface: #e4edec;
+    --on-light-surface: #000000;
+    --ranking-winners: #69ff15;
+    --ranking-others: #81c5bd;
+}
