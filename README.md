@@ -3,7 +3,7 @@
 ## Docs:
 - [tester service](src/tester/README.md)
 - [rest service](src/rest_service/README.md)
-- [frontend](src/frontend/README.md) UNDER CONSTRUCTION
+- [frontend](src/frontend/README.md)
 - [deployment](DEPLOY.md)
 
 ## Tasks
