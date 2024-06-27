@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Jomolhari';
+}
+
+.winner .container {
+  background-image: conic-gradient(#d7a30f, #b17c1b, #304543);
+}
+
+.second .container {
+  background-image: conic-gradient(#D9D9D9, #6d7973, #304543);
+}
+
+.third .container {
+  background-image: conic-gradient(#C56B2A, #b98c5c, #304543);
+}
+
+@layer utilities {
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+  }
+}
+
+html,
+body,
+#theme-provider,
+#root,
+.main-page {
+  height: 100%;
+  overflow: hidden;
+}
