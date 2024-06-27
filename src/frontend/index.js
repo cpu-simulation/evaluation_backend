@@ -31,12 +31,12 @@ app.get("/api/v1/evaluation/scenarios", (req, res) => {
     res.json(data.scenarios)
 })
 
-app.get("/api/v1/team/:id/history", (req, res) => {
+app.get("/api/v1/teams/:id/history", (req, res) => {
     res.json(data.history)
 })
 
 
-app.post("/api/v1/team/:id/test", (req, res) => {
+app.post("/api/v1/teams/:id/test", (req, res) => {
     console.log("testing team:", req.params.id)
     res.status(200).send()
 })

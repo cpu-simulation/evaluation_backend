@@ -24,7 +24,7 @@ export async function getResults(team: Team) {
 
 export async function getHistory(team: Team) {
     try {
-        const res = await fetch(`/api/v1/team/${team.id}/history`)
+        const res = await fetch(`/api/v1/teams/${team.id}/history`)
         const results = await res.json()
         return results
     } catch (err: any) {
@@ -47,7 +47,7 @@ export async function getScenarios() {
 
 export async function runTests(team: Team) {
     try {
-        await fetch(`/api/v1/team/${team.id}/test`, {
+        await fetch(`/api/v1/teams/${team.id}/test`, {
             method: "POST"
         })
     } catch (err: any) {
