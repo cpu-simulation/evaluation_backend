@@ -7,3 +7,10 @@ class TeamSerializers(serializers.ModelSerializer):
     class Meta:
         model = Team
         fields = ["id", "name", "members", "total_score", "has_website", "used_template"]
+
+class TeamTestSerialzers(serializers.ModelSerializer):
+    test_field = serializers.CharField(required=True)
+
+    class Meta:
+        model = Team
+        fields = ['test_field']
