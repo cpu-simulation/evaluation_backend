@@ -18,7 +18,6 @@ class TeamTestSerializer(serializers.ModelSerializer):
         fields = []
 
     def save_task(self):
-        
         msg = {
             "team_id": f"{self.instance.id}",
             "url": f"api.{self.instance.name}.dev"
