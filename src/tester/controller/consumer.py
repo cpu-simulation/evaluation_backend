@@ -27,6 +27,7 @@ class Consumer(ConsumerMixin):
         self.__inited = True
 
     def callback(self, ch, method, properties, body):
+        assert self.__inited, "Consumer not initialized"
         err = super().callback(body)
         if err is None:
             self.__channel.basic_ack(delivery_tag=method.delivery_tag)
