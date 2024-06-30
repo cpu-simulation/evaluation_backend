@@ -2,6 +2,7 @@ import pika
 
 from core.exceptions import MyBaseException
 from .mixin import ConsumerMixin
+import time
 import logging
 
 logger = logging.getLogger(__name__)
@@ -36,6 +37,8 @@ class Consumer(ConsumerMixin):
             logger.warning("[FAILED_TO_TEST] failed to test. %s", err)
         elif isinstance(err, Exception):
             logger.error(f"[SystemError]: {err}")
+        logger.info("sleep after failed")
+        time.sleep(1.0)
         self.__channel.basic_nack(delivery_tag=method.delivery_tag)
 
     def start_consuming(self):
