@@ -29,13 +29,13 @@ class Consumer(ConsumerMixin):
     def callback(self, ch, method, properties, body):
         err = super().callback(body)
         if err is None:
-            ch.basic_ack(delivery_tag=method.delivery_tag)
+            self.__channel.basic_ack(delivery_tag=method.delivery_tag)
             return
         elif isinstance(err, MyBaseException):
             logger.warning("[FAILED_TO_TEST] failed to test. %s", err)
         elif isinstance(err, Exception):
             logger.error(f"[SystemError]: {err}")
-        ch.basic_nack(delivery_tag=method.delivery_tag)
+        self.__channel.basic_nack(delivery_tag=method.delivery_tag)
 
     def start_consuming(self):
         assert self.__inited, "Consumer not initialized"
