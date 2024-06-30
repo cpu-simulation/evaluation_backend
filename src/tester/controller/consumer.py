@@ -38,8 +38,8 @@ class Consumer(ConsumerMixin):
         elif isinstance(err, Exception):
             logger.error(f"[SystemError]: {err}")
         logger.info("sleep after failed")
-        time.sleep(1.0)
         self.__channel.basic_nack(delivery_tag=method.delivery_tag)
+        time.sleep(1.0)
 
     def start_consuming(self):
         assert self.__inited, "Consumer not initialized"
