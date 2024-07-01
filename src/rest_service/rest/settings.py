@@ -172,3 +172,8 @@ LOGGER_CONF_FILE = open("rest/logger.json")
 LOGGS_DIR = BASE_DIR / "logs"
 LOGGS_DIR.mkdir(exist_ok=True)
 LOGGING = json.loads(LOGGER_CONF_FILE.read())
+
+
+# RabbitMQ configuration
+RABBIT_HOST = os.environ.get("RABBITMQ_URL", "rabbitmq")
+TEST_QUEUE = os.environ.get("TEST_QUEUE", "Test_Queue")
