@@ -1,12 +1,20 @@
 from sqlalchemy.orm import Session, declarative_base
 import sqlalchemy as sa
 from pathlib import Path
+from sqlalchemy.engine.url import URL
 import os, json, logging, atexit
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Database and orm configuration
-DB = sa.create_engine(os.environ.get("DB_URL"))
+DB = sa.create_engine(URL.create(
+    drivername="mysql+pymysql",
+    database=os.environ.get("MYSQL_DB"),
+    host=os.environ.get("DB_URL", "mysql"),
+    password=os.environ.get("MYSQL_PASSWORD"),
+    port=int(os.environ.get("MYSQL_PORT", "3306")),
+    username=os.environ.get("MYSQL_USER"),
+    ))
 Session = Session(DB)
 Base = declarative_base()
 
