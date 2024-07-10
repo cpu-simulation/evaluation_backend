@@ -14,8 +14,8 @@ def main():
     try:
         Base.metadata.create_all(DB)
         consumer = Consumer(host=RABBIT, queue=TEST_QUEUE)
-        consumer.callback(None, None, None, MOCK) #FIXME
-        # consumer.start_consuming()
+        consumer.connect()
+        consumer.start_consuming()
 
     except KeyboardInterrupt:
         logger.error("INTERRUPTED: keyboard interrupt")

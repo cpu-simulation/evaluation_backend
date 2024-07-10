@@ -2,6 +2,7 @@ import pika
 
 from core.exceptions import MyBaseException
 from .mixin import ConsumerMixin
+import time
 import logging
 
 logger = logging.getLogger(__name__)
@@ -27,15 +28,18 @@ class Consumer(ConsumerMixin):
         self.__inited = True
 
     def callback(self, ch, method, properties, body):
+        assert self.__inited, "Consumer not initialized"
         err = super().callback(body)
         if err is None:
-            ch.basic_ack(delivery_tag=method.delivery_tag)
+            self.__channel.basic_ack(delivery_tag=method.delivery_tag)
             return
         elif isinstance(err, MyBaseException):
             logger.warning("[FAILED_TO_TEST] failed to test. %s", err)
         elif isinstance(err, Exception):
             logger.error(f"[SystemError]: {err}")
-        ch.basic_nack(delivery_tag=method.delivery_tag)
+        logger.info("sleep after failed")
+        self.__channel.basic_nack(delivery_tag=method.delivery_tag)
+        time.sleep(1.0)
 
     def start_consuming(self):
         assert self.__inited, "Consumer not initialized"
