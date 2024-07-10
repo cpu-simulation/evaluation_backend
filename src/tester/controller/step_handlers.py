@@ -45,7 +45,7 @@ class BaseHandler(AbstractStepHandler):
 
     def __check_host(self):
         try:
-            requests.head(self.url)
+            requests.head(f"http://{self.url}:8000")
         except:
             raise SysException(
                 level=30,

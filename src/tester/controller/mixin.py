@@ -24,11 +24,12 @@ class ConsumerMixin:
                     )
                 results.append(result)
 
-            score = self.calculate_score_by_results(results)
-            self.insert_to_influx(team, score)
+            # score = self.calculate_score_by_results(results)
+            # self.insert_to_influx(team, score)
             self.insert_to_mysql(results=results)
 
         except Exception as e:
+            logger.warning(f"EXCEPTION: {e}")
             return e
 
     def calculate_score_by_results(self, results):
@@ -83,12 +84,14 @@ class ConsumerMixin:
                     )
                     
                 raise e
-
+        t = 1000000
+        if k!=0:
+            t = time/k
         r = Result()
         r.scenario_id = scenario.id
         r.team_id = team.id
         r.score = (100* k)/steps.__len__()
-        r.average_time = time/k if k !=0 else 1000000
+        r.average_time = t
         r.status = Result.StatusEnum.P\
             if k == steps.__len__() \
             else Result.StatusEnum.F
