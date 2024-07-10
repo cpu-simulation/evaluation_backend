@@ -44,7 +44,7 @@ function Sidebar({ teams, winners, setSelectedTeam }:
                     }
                 </div>
             </div>
-            <div className="teams-list overflow-y-scroll">
+            <div className="teams-list overflow-y-scroll no-scrollbar">
                 {
                     teamsList.length > 0
                         ? <>
