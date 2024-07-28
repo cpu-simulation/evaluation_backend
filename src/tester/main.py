@@ -6,7 +6,6 @@ import json
 import logging
 
 
-MOCK = json.dumps({"team_id": "7c90d362-c443-40da-b428-fab41656dd0f"})  #FIXME
 logger = logging.getLogger(__name__)
 
 
