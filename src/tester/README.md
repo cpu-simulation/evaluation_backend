@@ -1,7 +1,6 @@
 # Test service
 test service with python
 
-
 ## Responsibility
 
 - Waits for a new test-request message on rabbit-mq
@@ -38,3 +37,7 @@ file-json is a `RotatingFileHandler` with save the logs as json(using our manual
 |`DB_URL`       |True       |               |
 |`RABBITMQ_URL` |False      |`rabbitmq`     |
 |`TEST_QUEUE`   |False      |`Test_Queue`   |
+
+
+## TODO
+Lets clean this service
