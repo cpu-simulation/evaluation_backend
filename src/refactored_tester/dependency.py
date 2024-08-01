@@ -1,4 +1,7 @@
 from sqlalchemy.orm import Session
+from .queue_handler import AbstractQueueHandler
+
 
 class DependencyContainer:
-    DB_SESSION: SESSION
+    db: Session
+    queue_handler: AbstractQueueHandler
