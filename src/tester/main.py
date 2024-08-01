@@ -9,10 +9,9 @@ import logging
 logger = logging.getLogger(__name__)
 
 
-def main():
+def main(db, consumer, base):
     try:
-        Base.metadata.create_all(DB)
-        consumer = Consumer(host=RABBIT, queue=TEST_QUEUE)
+        base.metadata.create_all(db)
         consumer.connect()
         consumer.start_consuming()
 
@@ -27,6 +26,12 @@ def main():
         logger.error(e)
         raise e
 
+def get_db():
+    return DB
+
+def get_consumer():
+    return Consumer(host=RABBIT, queue=TEST_QUEUE)
+
 if __name__ == "__main__":
     setup_logging()
-    main()
+    main(db=get_db(), consumer=get_consumer(), base=Base)
