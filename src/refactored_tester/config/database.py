@@ -1,11 +1,12 @@
 import sqlalchemy as sa
 from sqlalchemy import URL
-from sqlalchemy.orm import Session, declarative_base
-
+from sqlalchemy.orm import Session
+from models import Base
+from functools import lru_cache
 import os
 
-Base = declarative_base()
 
+@lru_cache
 def get_db():
     DB_conf = {
         "drivername":"mysql+pymysql",
