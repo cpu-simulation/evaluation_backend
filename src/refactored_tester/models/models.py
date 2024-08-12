@@ -1,6 +1,6 @@
 import enum
 
-from sqlalchemy import JSON, Enum
+from sqlalchemy import JSON, UUID, Enum
 from sqlalchemy.orm import (
     Mapped,
     DeclarativeBase,
@@ -55,3 +55,16 @@ class ScenarioStep(Base):
     def __repr__(self):
         return f"<ScenarioStep:{self.name}>"
 
+
+class Team(Base):
+    __tablename__ = "teams"
+    __table_args__ = (
+        PrimaryKeyConstraint(name="team_id")
+    )
+
+    id: Mapped[UUID]
+    name: Mapped[str]
+    members: Mapped[JSON]
+
+    def __repr__(self):
+        return f"<Team(id={self.id}, name={self.name})>"
