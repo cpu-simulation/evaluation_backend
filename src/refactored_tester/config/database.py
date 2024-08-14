@@ -10,7 +10,7 @@ import os
 def get_db(debug=False):
 
     if debug:
-       DB = sa.create_engine("sqlite:///./debug.db")
+       DB = sa.create_engine("sqlite:///./debug.sqlite3")
 
     else:
         DB_conf = {
