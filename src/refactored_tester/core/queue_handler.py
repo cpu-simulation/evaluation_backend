@@ -38,3 +38,22 @@ class PikaQueueHandler:
         assert self.__inited, "Consumer not initialized"
         self.callback_func(body)
 
+
+class MockQueueHandler(AbstractQueueHandler):
+    some_data: list
+
+    def __init__(self, callback_func: callable = None, *args, **kwargs) -> None:
+        self.callback_func = callback_func
+        self.__inited = False
+        
+    def connect(self):
+        self.__inited = True
+    
+
+    def callback(self, ch, method, properties, body):
+        assert self.__inited, "Consumer not initialized"
+        self.callback_func(body)
+
+    def start_consuming(self):
+        for data in self.some_data:
+            self.callback(None, None, None, json.dumps(data))
