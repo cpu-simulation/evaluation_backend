@@ -4,16 +4,15 @@ import time
 
 
 class AbstractPodHandler(ABC):
-    @abstractmethod
-    def __init__(self, *args, **kwargs) -> None:
-        ...
+    host: str
+    connection_checked:bool = False
+
+
     @abstractmethod
     def connect(self)->None:
         ...
 
 class PodHandler(AbstractPodHandler):
-    host: str
-    connection_checked:bool = False
     
     def connect(self):
         try:
