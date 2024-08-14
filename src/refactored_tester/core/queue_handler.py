@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 import pika
-
+import json
 class AbstractQueueHandler(ABC):
     @abstractmethod
     def connect(self):
@@ -10,9 +10,12 @@ class AbstractQueueHandler(ABC):
     def start_consuming(self):
         ...
 
+    @abstractmethod
+    def callback(self, ch, method, properties, body):
+        ...
 
-class PikaQueueHandler:
-    def __init__(self, host:str, queue:str, callback_func) -> None:
+class PikaQueueHandler(AbstractQueueHandler):
+    def __init__(self, host:str, queue:str, callback_func: callable = None) -> None:
         self.__connection_host = host
         self.__queue = queue
         self.callback_func = callback_func
@@ -33,4 +36,24 @@ class PikaQueueHandler:
 
     def callback(self, ch, method, properties, body):
         assert self.__inited, "Consumer not initialized"
+        self.callback_func(body)
+
+
+class MockQueueHandler(AbstractQueueHandler):
+    some_data: list
+
+    def __init__(self, callback_func: callable = None, *args, **kwargs) -> None:
+        self.callback_func = callback_func
+        self.__inited = False
         
+    def connect(self):
+        self.__inited = True
+    
+
+    def callback(self, ch, method, properties, body):
+        assert self.__inited, "Consumer not initialized"
+        self.callback_func(body)
+
+    def start_consuming(self):
+        for data in self.some_data:
+            self.callback(None, None, None, json.dumps(data))
