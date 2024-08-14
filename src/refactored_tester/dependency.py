@@ -1,7 +1,6 @@
 from sqlalchemy.orm import sessionmaker
 from pydantic import BaseModel
 
-from core.controller import Controller
 from core.pod_handler import AbstractPodHandler
 from core.queue_handler import AbstractQueueHandler
 
