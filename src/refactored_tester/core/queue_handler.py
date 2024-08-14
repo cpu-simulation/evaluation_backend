@@ -14,7 +14,7 @@ class AbstractQueueHandler(ABC):
     def callback(self, ch, method, properties, body):
         ...
 
-class PikaQueueHandler:
+class PikaQueueHandler(AbstractQueueHandler):
     def __init__(self, host:str, queue:str, callback_func: callable = None) -> None:
         self.__connection_host = host
         self.__queue = queue
