@@ -12,9 +12,8 @@ class AbstractPodHandler(ABC):
         ...
 
 class PodHandler(AbstractPodHandler):
-    def __init__(self, host:str, *args, **kwargs) -> None:
-        self.host = host
-        self.connection_checked = False
+    host: str
+    connection_checked:bool = False
     
     def connect(self):
         try:
