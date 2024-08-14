@@ -2,6 +2,7 @@ import json
 from typing import Any
 from sqlalchemy.orm import Session
 
+from models.models import Scenario
 from models.schema import QueueMessage
 from models.db_interface import DataBaseInterface
 
@@ -9,9 +10,9 @@ from .pod_handler import AbstractPodHandler
 
 
 class Controller:
-    def __init__(self, db: Session, pod_handler_cls: type[AbstractPodHandler]) -> None:
+    def __init__(self, db: Session, pod_handler: AbstractPodHandler) -> None:
         self.db = db
-        self.pod_handler_cls = pod_handler_cls
+        self.pod_handler = pod_handler
 
     def __call__(self, body) -> Any:
         # [x] decode q msg
@@ -23,11 +24,20 @@ class Controller:
 
         ...
 
+        #[x]: init pod handler and check connection
         # FIXME: NOTICE: pod hostname base on name
-        pod_handler = self.pod_handler_cls(host=f"{team.name}")
+        self.pod_handler.host = msg.host or f"http://{team.name}:8000"
+        pod_handler = self.pod_handler
         # check if available
         pod_handler.connect()
 
+        scenarios = DataBaseInterface.find_scenarios(session=self.db)
+        for scenario in scenarios:
+            pod_handler.test(scenario)
         # test each scenario
         # append to results
         # save all results
+    def test(self, scenario: Scenario, pod_handler: AbstractPodHandler):
+        steps = DataBaseInterface.find_scenario_steps(session=self.db, scenario_id=scenario.id)
+        for step in steps:
+            ...
