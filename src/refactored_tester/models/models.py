@@ -1,25 +1,36 @@
 import enum
+from typing import NewType
+from uuid import UUID as PYTHON_UUID
 
-from sqlalchemy import JSON, UUID, Enum
+from sqlalchemy import types as t
 from sqlalchemy.orm import (
     Mapped,
     DeclarativeBase,
     MappedAsDataclass,
 )
-from sqlalchemy.schema import PrimaryKeyConstraint, ForeignKeyConstraint
+from sqlalchemy.schema import (
+    PrimaryKeyConstraint, 
+    ForeignKeyConstraint, 
+    UniqueConstraint
+    )
 
+UUID_FIELD = NewType("UUID_FIELD", PYTHON_UUID)
+JSON_FIELD = NewType("JSON_FIELD", dict)
 
 class Base(
     DeclarativeBase,
     MappedAsDataclass,
 ):
-    pass
+    type_annotation_map = {
+        UUID_FIELD: t.UUID,
+        JSON_FIELD: t.JSON,
+    }
 
 
 class Scenario(Base):
     __tablename__ = "scenarios"
     __table_args__ = (
-        PrimaryKeyConstraint(),
+        PrimaryKeyConstraint("id"),
         )
     id: Mapped[int]
     name: Mapped[str]
@@ -41,15 +52,17 @@ class ScenarioStep(Base):
 
     __tablename__ = "scenario_steps"
     __table_args__ = (
-        PrimaryKeyConstraint(),
-        ForeignKeyConstraint()
+        PrimaryKeyConstraint("id"),
+        ForeignKeyConstraint(["scenario_id"], ["scenarios.id"], ondelete="CASCADE"),
+        UniqueConstraint("step")
     )
     
     id: Mapped[int]
     name: Mapped[str]
-    type: Mapped[Enum[TypeEnum]]
-    input: Mapped[JSON]
-    output: Mapped[JSON]
+    step: Mapped[str]
+    type: Mapped[TypeEnum]
+    input: Mapped[JSON_FIELD]
+    output: Mapped[JSON_FIELD]
     scenario_id: Mapped[int]
 
     def __repr__(self):
@@ -59,12 +72,12 @@ class ScenarioStep(Base):
 class Team(Base):
     __tablename__ = "teams"
     __table_args__ = (
-        PrimaryKeyConstraint(name="team_id")
+        PrimaryKeyConstraint("id"),
     )
 
-    id: Mapped[UUID]
+    id: Mapped[UUID_FIELD]
     name: Mapped[str]
-    members: Mapped[JSON]
+    members: Mapped[JSON_FIELD]
 
     def __repr__(self):
         return f"<Team(id={self.id}, name={self.name})>"
