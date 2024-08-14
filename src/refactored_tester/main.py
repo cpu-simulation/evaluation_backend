@@ -1,10 +1,12 @@
+#! python
+
 import os
 
 from core.controller import Controller
 from core.pod_handler import PodHandler
-from .config.database import get_db
-from .dependency import DependencyContainer
-from .core.queue_handler import PikaQueueHandler
+from config.database import get_db
+from dependency import DependencyContainer
+from core.queue_handler import PikaQueueHandler
 
 def main(dp_container: DependencyContainer) -> None:
     # logic:
@@ -15,19 +17,25 @@ def main(dp_container: DependencyContainer) -> None:
         pod_handler=dp_container.pod_handler
     )
 
-    queue_handler = PikaQueueHandler(
-        host=dp_container.RABBITMQ_URL,
-        queue=dp_container.TEST_QUEUE,
-        callback=controller
-    )
+    queue_handler = dp_container.queue_handler
+    queue_handler.callback_func=controller
+    
     queue_handler.connect()
     queue_handler.start_consuming()
     
 
 if __name__=="__main__":
-    dp_container = DependencyContainer()
-    dp_container.db = get_db()
-    dp_container.pod_handler = PodHandler
-    dp_container.TEST_QUEUE = os.environ.get("TEST_QUEUE", "Test_Queue")
-    dp_container.RABBITMQ_URL = os.environ.get("RABBITMQ_URL", "rabbitmq")
-    main(dp_container)
+    TEST_QUEUE = os.environ.get("TEST_QUEUE", "Test_Queue")
+    RABBITMQ_URL = os.environ.get("RABBITMQ_URL", "rabbitmq")
+
+    dp_container = DependencyContainer(
+        db=get_db(debug=True),
+        pod_handler=PodHandler(),
+        queue_handler=PikaQueueHandler(
+            host=RABBITMQ_URL,
+            queue=TEST_QUEUE,
+        ),
+        TEST_QUEUE=TEST_QUEUE,
+        RABBITMQ_URL=RABBITMQ_URL
+    )
+    # main(dp_container)
