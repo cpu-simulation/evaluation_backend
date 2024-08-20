@@ -50,10 +50,10 @@ class MockQueueHandler(AbstractQueueHandler):
         self.__inited = True
     
 
-    def callback(self, ch, method, properties, body):
+    def callback(self, ch=None, method=None, properties=None, body=None):
         assert self.__inited, "Consumer not initialized"
         self.callback_func(body)
 
     def start_consuming(self):
         for data in self.some_data:
-            self.callback(None, None, None, json.dumps(data))
+            self.callback(body=data)
