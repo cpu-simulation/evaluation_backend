@@ -14,7 +14,7 @@ def main(dp_container: DependencyContainer) -> None:
     # connect it to queue handler
     controller = Controller(
         db=dp_container.db,
-        pod_handler=dp_container.pod_handler
+        pod_handler_cls=dp_container.pod_handler
     )
 
     queue_handler = dp_container.queue_handler
@@ -30,12 +30,10 @@ if __name__=="__main__":
 
     dp_container = DependencyContainer(
         db=get_db(debug=True),
-        pod_handler=PodHandler(),
+        pod_handler=PodHandler,
         queue_handler=PikaQueueHandler(
             host=RABBITMQ_URL,
             queue=TEST_QUEUE,
         ),
-        TEST_QUEUE=TEST_QUEUE,
-        RABBITMQ_URL=RABBITMQ_URL
     )
     # main(dp_container)
