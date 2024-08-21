@@ -22,3 +22,9 @@ class PodHandler(AbstractPodHandler):
             raise Exception("host not reachable")
         else:
             self.connection_checked = True
+
+
+class MockPodHandler(AbstractPodHandler):
+    
+    def connect(self) -> None:
+        self.connection_checked = True
